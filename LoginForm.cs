@@ -1,4 +1,5 @@
-﻿using Kursach.Models;
+﻿using Kursach.Logic;
+using Kursach.Models;
 using Kursach.Repositories_CRUD;
 using Kursach.Services;
 using Kursach.UI;
@@ -18,30 +19,30 @@ namespace Kursach
 {
     public partial class LoginForm : Form
     {
-        private readonly UserService UserService;
-        private readonly ClientController clientController;
-        public LoginForm()
+        private readonly ControllerLoginForm _loginController;
+        public LoginForm(UserService userService, ClientService clientService, DealerService dealerService)
         {
             InitializeComponent();
-            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            var userRepository = new UserRepository(connectionString);
-            var clientRepository = new ClientRepository(connectionString);
-            UserService = new UserService(userRepository, clientRepository);
-            clientController = new ClientController(UserService);
+            _loginController = new ControllerLoginForm(userService, clientService, dealerService);
 
+            InitializeComboBoxItems();
+            comboBox1.SelectedIndex = 0;
+        }
+        private void InitializeComboBoxItems()
+        {
             comboBox1.Items.Add("Client");
             comboBox1.Items.Add("Dealer");
             comboBox1.Items.Add("Dealer/Client");
             comboBox1.Items.Add("Admin");
         }
-       
+
         public void NextFormClient(string login, string password, string role)
         {
-            
-            MainFormClient programForm = new MainFormClient(login, password, role);
+
+            /*MainFormClient programForm = new MainFormClient(login, password, role);
             programForm.Show();
             //programForm.FormClosed += (s, args) => this.Close(); 
-            this.Hide(); 
+            this.Hide(); */
         }
         public void NextFormDealer(string login, string password, string role)
         {
@@ -66,6 +67,7 @@ namespace Kursach
             button4.Visible = false;
             textBox1.Clear();
             textBox2.Clear();
+            label7.Text = "Login";
         }
 
         public void VisibilityRegistration() 
@@ -82,48 +84,23 @@ namespace Kursach
             if (linkLabel1.Visible) { linkLabel1.Visible = false; }
             textBox1.Clear();
             textBox2.Clear();
+            label7.Text = "Registration";
         }
-        public void Login()
+        private void Login(string login, string password, string role)
         {
-            try
-            {
-                string login = textBox1.Text;
-                string password = textBox2.Text;
-                string role = comboBox1.Text;
-
-                if (UserService.IsLoginExists(login, password, role))
-                {
-                    MessageBox.Show("Вход успешно выполнен!");
-                    UserService.AddClient(login);
-                    //NextFormClient(login, password, role);
-
-                }
-                else{MessageBox.Show("Пользователь с таким логином и паролем не найден.");}
-            }
-            catch (Exception ex){MessageBox.Show(ex.Message);}
+            _loginController.Login(login, password, role);
         }
-        private void Registration()
+        private void Registration(string login, string password, string role)
         {
-            var login = textBox1.Text;
-            var password = textBox2.Text;
-            var role = comboBox1.Text;
-            var newUser = new User { Login = login, Role = role, Password = password };
-
-            try
-            {
-                UserService.RegisterUser(newUser);
-                MessageBox.Show("Registration successful!");
-                VisibilityLogin();
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
+            _loginController.Registration(login, password, role);
+            VisibilityLogin();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            Login();
+            string login = textBox1.Text;
+            string password = textBox2.Text;
+            string role = comboBox1.Text;
+            Login(login, password, role);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -138,12 +115,16 @@ namespace Kursach
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Registration();
+            string login = textBox1.Text;
+            string password = textBox2.Text;
+            string role = comboBox1.Text;
+            Registration(login, password, role);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             VisibilityRegistration();
         }
+
     }
 }

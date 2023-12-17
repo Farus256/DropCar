@@ -15,14 +15,12 @@ namespace Kursach.Repositories_CRUD
     public class ClientRepository : ConnectionRepository
     {
         public ClientRepository(string connectionString) : base(connectionString) { }
-
-        public List<Publication> GetAllPublications()
+        public List<Client> GetAllClients()
         {
-            var publications = Connection.Query<Publication>("SELECT * FROM Publications").ToList();
-            return publications;
+            var clients = Connection.Query<Client>("SELECT * FROM Clients").ToList();
+            return clients;
         }
 
-       
         public bool IsClientExists(string login)
         {
             string query = "SELECT COUNT(*) FROM Clients WHERE Login = @Login";
@@ -30,14 +28,7 @@ namespace Kursach.Repositories_CRUD
             return count > 0;
         }
 
-
-        public List<Clients> GetAllClients()
-        {
-            var clients = Connection.Query<Clients>("SELECT * FROM Clients").ToList();
-            return clients;
-        }
-
-        public Clients GetClient()
+        public Client GetClient()
         {
             throw new NotImplementedException("Метод еще не реализован.");
         }
@@ -51,8 +42,8 @@ namespace Kursach.Repositories_CRUD
             }
             else
             {
-                string query = "INSERT INTO [Clients] (id_client, Login) VALUES (@id_dealer, @Login)";
-                Connection.Execute(query, new { id_dealer = 1, Login = login });
+                string query = "INSERT INTO [Clients] (Login) VALUES ( @Login)";
+                Connection.Execute(query, new {Login = login });
                 return true;
             }
             

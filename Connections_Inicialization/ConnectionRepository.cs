@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
 using System.Text;
-using Dapper;
 using System.Threading.Tasks;
 
 namespace Kursach.Repositories_CRUD

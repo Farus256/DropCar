@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logic\PublicationService.cs" />
+    <Compile Include="Services\ClientService.cs" />
+    <Compile Include="Services\DealerService.cs" />
+    <Compile Include="Services\PublicationService.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,11 +75,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories_CRUD\Class\ClientRepository.cs" />
-    <Compile Include="Logic\UserService.cs" />
-    <Compile Include="Repositories_CRUD\Class\ConnectionRepository.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Connections_Inicialization\ConnectionRepository.cs" />
     <Compile Include="Repositories_CRUD\Class\DealerRepository.cs" />
+    <Compile Include="Repositories_CRUD\Class\PublicationRepository.cs" />
     <Compile Include="Repositories_CRUD\Class\UserRepository.cs" />
-    <Compile Include="UI\ClientController.cs" />
+    <Compile Include="UI\ControllerLoginForm.cs" />
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -107,8 +110,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories_CRUD\Interface\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

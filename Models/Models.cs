@@ -18,14 +18,14 @@ namespace Kursach.Models
         public byte[] Photo { get; set; }
     }
 
-    public class Dealers
+    public class Dealer
     {
         public int IdDealer { get; set; }
         public string NameDealer { get; set; }
         public string Email { get; set; }
     }
 
-    public class Clients
+    public class Client
     {
         public int IdClient { get; set; }
         public string NameClient { get; set; }
