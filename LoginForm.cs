@@ -28,7 +28,7 @@ namespace Kursach
             InitializeComboBoxItems();
             comboBox1.SelectedIndex = 0;
         }
-        private void InitializeComboBoxItems()
+        public void InitializeComboBoxItems()
         {
             comboBox1.Items.Add("Client");
             comboBox1.Items.Add("Dealer");
@@ -51,6 +51,33 @@ namespace Kursach
             //programForm.FormClosed += (s, args) => this.Close(); 
             this.Hide();*/
         }
+        public void VisibilityAddInformation()
+        {
+            linkLabel1.Visible = false;
+            button3.Visible = false;
+            button2.Visible = false;
+            label6.Visible = false;
+            textBox1.Visible = false;
+            textBox2.Visible = false;
+            button1.Visible = false;
+            label1.Visible = false;
+            label2.Visible = false;
+            comboBox1.Visible = false;
+            button4.Visible = false;
+       
+            textBox2.Clear();
+            label7.Text = "Add some info";
+
+            textBox3.Visible = true;
+            textBox4.Visible = true;
+            textBox5.Visible = true;
+            label8.Visible = true;
+            label9.Visible = true;
+            label10.Visible = true;
+            button5.Visible = true;
+            textBox6.Visible = true;
+            label11.Visible = true;
+        }
 
         public void VisibilityLogin()
         {
@@ -68,6 +95,8 @@ namespace Kursach
             textBox1.Clear();
             textBox2.Clear();
             label7.Text = "Login";
+
+
         }
 
         public void VisibilityRegistration() 
@@ -89,6 +118,7 @@ namespace Kursach
         private void Login(string login, string password, string role)
         {
             _loginController.Login(login, password, role);
+            VisibilityAddInformation();
         }
         private void Registration(string login, string password, string role)
         {
@@ -126,5 +156,14 @@ namespace Kursach
             VisibilityRegistration();
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string login = textBox1.Text;
+            string email = textBox3.Text;
+            string address = textBox5.Text;
+            string name = textBox6.Text;
+            string role = comboBox1.Text;
+            _loginController.AddInfoUser(name, email, address, login, role);
+        }
     }
 }

@@ -1,11 +1,10 @@
-﻿using Kursach.Models;
-using Kursach.Repositories_CRUD;
-using Kursach.Repositories_CRUD.Class;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kursach.Models; // Добавьте эту директиву using для использования моделей
+using Kursach.Repositories_CRUD.Class;
 
 namespace Kursach.Logic
 {
@@ -18,3 +17,4 @@ namespace Kursach.Logic
         }
     }
 }
+

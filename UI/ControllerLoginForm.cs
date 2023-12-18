@@ -4,10 +4,12 @@ using Kursach.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Kursach.UI
 {
@@ -70,7 +72,10 @@ namespace Kursach.UI
             }
         }
 
-
+        public void AddInfoUser(string name, string email, string address, string login, string role)
+        {
+            _userService.AddInfo(name, email, address, login, role);
+        }
 
 
     }

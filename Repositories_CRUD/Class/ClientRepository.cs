@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Configuration;
 using Kursach.Repositories_CRUD;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Net;
+using System.Windows.Forms;
 
 namespace Kursach.Repositories_CRUD
 {
@@ -49,10 +52,7 @@ namespace Kursach.Repositories_CRUD
             
         }
 
-        public void UpdateClient()
-        {
-            throw new NotImplementedException("Метод еще не реализован.");
-        }
+       
 
         public void DeleteClient()
         {

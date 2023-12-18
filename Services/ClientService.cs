@@ -24,5 +24,6 @@ namespace Kursach.Logic
 
             return _clientRepository.AddClient(login);
         }
+        
     }
 }

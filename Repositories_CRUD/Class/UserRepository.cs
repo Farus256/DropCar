@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Configuration;
 using Kursach.Repositories_CRUD;
-
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Net;
+using System.Xml.Linq;
+using System.Windows.Forms;
 
 namespace Kursach.Repositories_CRUD
 {
@@ -35,6 +38,7 @@ namespace Kursach.Repositories_CRUD
             return count > 0;
         }
 
+
         public List<User> GetAllUsers()
         {
             var users = Connection.Query<User>("SELECT * FROM [User]").ToList();
@@ -51,9 +55,25 @@ namespace Kursach.Repositories_CRUD
             throw new NotImplementedException("Метод еще не реализован.");
         }
 
-        public void UpdateUser()
+        public bool UpdateUser(string name, string email, string address, string login, string role)
         {
-            throw new NotImplementedException("Метод еще не реализован.");
+            try
+            {
+                if (role == "Client")
+                {
+                    string query = "UPDATE [Clients] SET email = @Email, address = @Address, name_client = @Name WHERE Login = @Login";
+                    Connection.Execute(query, new { Login = login, Email = email, Address = address, Name = name });
+                }
+                else if (role == "Dealer")
+                {
+                    string query = "UPDATE [Dealers] SET email = @Email, address = @Address, name_dealer = @Name WHERE Login = @Login";
+                    Connection.Execute(query, new { Login = login, Email = email, Address = address, Name = name });
+                }
+
+                return true;
+            }
+
+            catch (Exception ex) { MessageBox.Show(ex.Message); return false; }
         }
 
         public void DeleteUser()
