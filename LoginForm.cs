@@ -1,6 +1,8 @@
-﻿using Kursach.Logic;
+﻿using Kursach.Connections_Inicialization;
+using Kursach.Logic;
 using Kursach.Models;
 using Kursach.Repositories_CRUD;
+using Kursach.Repositories_CRUD.Class;
 using Kursach.Services;
 using Kursach.UI;
 using System;
@@ -20,8 +22,13 @@ namespace Kursach
     public partial class LoginForm : Form
     {
         private readonly ControllerLoginForm _loginController;
-        public LoginForm(UserService userService, ClientService clientService, DealerService dealerService)
+        
+        public LoginForm()
         {
+            var serviceFactory = new ServiceCreator();
+            var userService = serviceFactory.CreateUserService();
+            var clientService = serviceFactory.CreateClientService();
+            var dealerService = serviceFactory.CreateDealerService();
             InitializeComponent();
             _loginController = new ControllerLoginForm(userService, clientService, dealerService);
 
@@ -44,12 +51,12 @@ namespace Kursach
             //programForm.FormClosed += (s, args) => this.Close(); 
             this.Hide(); */
         }
-        public void NextFormDealer(string login, string password, string role)
+        public void NextFormDealer()
         {
-            /*MainForm programForm = new MainForm(login, password, role);
-            programForm.Show();
-            //programForm.FormClosed += (s, args) => this.Close(); 
-            this.Hide();*/
+            string login = textBox1.Text;
+
+            var mainFormDealer = new MainFormDealer(login);
+            mainFormDealer.Show();
         }
         public void VisibilityAddInformation()
         {
@@ -164,6 +171,12 @@ namespace Kursach
             string name = textBox6.Text;
             string role = comboBox1.Text;
             _loginController.AddInfoUser(name, email, address, login, role);
+
+            
+            NextFormDealer();
+            
+
+
         }
     }
 }

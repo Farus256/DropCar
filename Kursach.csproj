@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connections_Inicialization\ServiceCreator.cs" />
     <Compile Include="Services\ClientService.cs" />
     <Compile Include="Services\DealerService.cs" />
     <Compile Include="Services\PublicationService.cs" />
@@ -58,12 +59,6 @@
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainFormClient.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainFormClient.Designer.cs">
-      <DependentUpon>MainFormClient.cs</DependentUpon>
     </Compile>
     <Compile Include="MainFormDealer.cs">
       <SubType>Form</SubType>
@@ -80,12 +75,13 @@
     <Compile Include="Repositories_CRUD\Class\DealerRepository.cs" />
     <Compile Include="Repositories_CRUD\Class\PublicationRepository.cs" />
     <Compile Include="Repositories_CRUD\Class\UserRepository.cs" />
+    <Compile Include="UI\ControllerMainFormDealer.cs" />
     <Compile Include="UI\ControllerLoginForm.cs" />
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainFormClient.resx">
-      <DependentUpon>MainFormClient.cs</DependentUpon>
+    <EmbeddedResource Include="MainFormDealer.resx">
+      <DependentUpon>MainFormDealer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Configuration;
 using Kursach.Repositories_CRUD;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Net;
 using System.Windows.Forms;
 
@@ -22,6 +21,13 @@ namespace Kursach.Repositories_CRUD
         {
             var clients = Connection.Query<Client>("SELECT * FROM Clients").ToList();
             return clients;
+        }
+
+        public List<Publication> GetAllPublications()
+        {
+            string query = @"SELECT * FROM Publication";
+            var publications = Connection.Query<Publication>(query).ToList();
+            return publications;
         }
 
         public bool IsClientExists(string login)
@@ -51,8 +57,6 @@ namespace Kursach.Repositories_CRUD
             }
             
         }
-
-       
 
         public void DeleteClient()
         {

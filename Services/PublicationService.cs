@@ -10,10 +10,23 @@ namespace Kursach.Logic
 {
     public class PublicationService
     {
-        private readonly PublicationRepository PublicationRepository;
+        private readonly PublicationRepository _publicationRepository;
+        public PublicationService(PublicationRepository publicationRepository)
+        {
+            _publicationRepository = publicationRepository;
+        }
         public List<Publication> GetAllPublications()
         {
-            return PublicationRepository.GetAllPublications();
+            return _publicationRepository.GetAllPublications();
+        }
+        public void AddPublication(Publication publication)
+        {
+            _publicationRepository.AddPublication(publication);
+        }
+
+        public List<string> GetModels()
+        {
+            return _publicationRepository.GetModels();
         }
     }
 }
