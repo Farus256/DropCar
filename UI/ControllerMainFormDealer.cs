@@ -6,6 +6,8 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
+
+
 namespace Kursach.UI
 {
     public class ControllerMainFormDealer
@@ -108,11 +110,12 @@ namespace Kursach.UI
 
         public void ShowStatistics()
         {
+
             // Получение статистики из контроллера
-            var statistics = GetStatistics();
+           // var statistics = GetStatistics();
 
             // Отображение статистики в MessageBox
-            StringBuilder message = new StringBuilder();
+            /*StringBuilder message = new StringBuilder();
             message.AppendLine("Ad statistics:");
             message.AppendLine($"\nNumber of different types of cars: {statistics.TotalCarTypes}");
             message.AppendLine($"\nNumber of car brands: {statistics.TotalCarMarks}");
@@ -120,7 +123,7 @@ namespace Kursach.UI
             message.AppendLine($"\nAverage ad price: {statistics.AveragePrice:C}");
             message.AppendLine($"\nPercentage of active ads: {statistics.ActiveAdsPercentage:P}");
 
-            MessageBox.Show(message.ToString(), "Statistic", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(message.ToString(), "Statistic", MessageBoxButtons.OK, MessageBoxIcon.Information);*/
         }
     }
 

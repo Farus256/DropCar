@@ -69,7 +69,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(448, 92);
+            this.panel1.Size = new System.Drawing.Size(434, 92);
             this.panel1.TabIndex = 0;
             // 
             // label4
@@ -77,7 +77,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft YaHei UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label4.Location = new System.Drawing.Point(149, 46);
+            this.label4.Location = new System.Drawing.Point(138, 46);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(296, 31);
             this.label4.TabIndex = 1;
@@ -172,13 +172,13 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 331);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(448, 46);
+            this.panel3.Size = new System.Drawing.Size(434, 46);
             this.panel3.TabIndex = 7;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 24);
+            this.label5.Location = new System.Drawing.Point(3, 24);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(427, 13);
             this.label5.TabIndex = 8;
@@ -362,7 +362,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(448, 377);
+            this.ClientSize = new System.Drawing.Size(434, 377);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.textBox7);

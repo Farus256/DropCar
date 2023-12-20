@@ -17,7 +17,7 @@ namespace Kursach.UI
 
         public List<Publication> GetPublications()
         {
-            return _publicationService.GetAllPublications();
+            return _publicationService.GetAllPublicationsActive();
         }
 
         public string GetRealName(string login)

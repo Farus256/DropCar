@@ -15,6 +15,10 @@ namespace Kursach.Logic
         {
             return _publicationRepository.GetAllPublications();
         }
+        public List <Publication> GetAllPublicationsActive() 
+        {
+            return _publicationRepository.GetAllPublicationsActive();
+        }
         public void AddPublication(Publication publication)
         {
             _publicationRepository.AddPublication(publication);

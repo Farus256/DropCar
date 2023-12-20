@@ -44,15 +44,25 @@ namespace Kursach
 
         public void NextFormClient(string login)
         {
+            Form previousForm = this;
             var mainFormClient = new MainFormClient(login);
-            mainFormClient.FormClosed += (s, args) => this.Close(); // Закрывает текущую форму, когда MainFormClient закрывается
+            mainFormClient.FormClosed += (s, args) =>
+            {
+             
+                previousForm.Show(); // Показывает предыдущую форму
+            };
             this.Hide(); // Скрывает текущую форму
             mainFormClient.Show();
         }
         public void NextFormDealer(string login)
         {
+            Form previousForm = this;
             var mainFormDealer = new MainFormDealer(login);
-            mainFormDealer.FormClosed += (s, args) => this.Close(); // Закрывает текущую форму, когда MainFormDealer закрывается
+            mainFormDealer.FormClosed += (s, args) =>
+            {
+                
+                previousForm.Show(); // Показывает предыдущую форму
+            };
             this.Hide(); // Скрывает текущую форму
             mainFormDealer.Show();
         }

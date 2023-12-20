@@ -94,7 +94,7 @@ namespace Kursach
 
                 // Проверка на согласие дилера
                 decimal initialPrice = Convert.ToDecimal(selectedprice);
-                if (finalPrice < initialPrice)
+                if (finalPrice < initialPrice * (decimal)0.8)
                 {
                     MessageBox.Show("Dealer does not agree with the final price.", "Deal Rejected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -118,7 +118,7 @@ namespace Kursach
 
                 
                 MessageBox.Show(dealMessage, "Deal Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                InitializeDataGridView();
             }
             
             catch 
@@ -160,15 +160,12 @@ namespace Kursach
                 
                 List<string> dealerPhones = _controller.GetDealerPhones(selectedlogin);
 
-               
                 string phonesMessage = "Dealer Phones:\n" + string.Join("\n", dealerPhones);
-
                 
                 MessageBox.Show(phonesMessage, "Dealer Phones", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -183,17 +180,12 @@ namespace Kursach
                     MessageBox.Show("Please enter a valid price.", "Invalid Price", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
                
                 string condition = comboBox1.SelectedItem.ToString();
 
-                
                 var searchResults = _controller.GetPublicationsFilter(targetPrice, condition);
-
-
                 
                 dataGridView1.DataSource = searchResults;
-
                
                 dataGridView1.Update();
                 dataGridView1.Refresh();

@@ -11,7 +11,6 @@ namespace Kursach.Logic
         {
             _dealerRepository = dealerRepository;
         }
-
         public List<Dealer> GetAllDealers()
         {
             return _dealerRepository.GetAllDealers();

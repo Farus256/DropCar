@@ -14,9 +14,9 @@ namespace Kursach.UI
 
         public ControllerLoginForm(UserService userService, ClientService clientService, DealerService dealerService)
         {
-            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
-            _clientService = clientService ?? throw new ArgumentNullException(nameof(clientService));
-            _dealerService = dealerService ?? throw new ArgumentNullException(nameof(dealerService));
+            _userService = userService;
+            _clientService = clientService;
+            _dealerService = dealerService;
         }
 
         public bool Login(string login, string password, string role)

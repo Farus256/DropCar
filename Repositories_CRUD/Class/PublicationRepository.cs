@@ -18,6 +18,15 @@ namespace Kursach.Repositories_CRUD.Class
                 return publications;
             }
         }
+        public List<Publication> GetAllPublicationsActive()
+        {
+            using (var repo = new ConnectionRepository(connectionString))
+            {
+                string query = "SELECT p.*, m.car_mark FROM Publication p INNER JOIN Model m ON p.model_car = m.model_car WHERE p.Status = 'Active';";
+                var publications = repo.Connection.Query<Publication>(query).ToList();
+                return publications;
+            }
+        }
 
         public List<string> GetModels()
         {
@@ -87,13 +96,13 @@ namespace Kursach.Repositories_CRUD.Class
             using (var repo = new ConnectionRepository(connectionString))
             {
                 string query = @"
-                    SELECT
-                    COUNT(DISTINCT p.type_car) AS TotalCarTypes,
-                    COUNT(DISTINCT m.car_mark) AS TotalCarMarks,
-                    COUNT(DISTINCT m.model_car) AS TotalCarModels,
-                    AVG(p.price) AS AveragePrice,
-                    CAST(SUM(CASE WHEN p.Status = 'Active' THEN 1 ELSE 0 END) AS decimal) / COUNT(*) AS ActiveAdsPercentage
-                    FROM Publication p INNER JOIN Model m ON p.model_car = m.model_car;";
+                   SELECT
+                   COUNT(DISTINCT p.type_car) AS TotalCarTypes,
+                   COUNT(DISTINCT m.car_mark) AS TotalCarMarks,
+                   COUNT(DISTINCT m.model_car) AS TotalCarModels,
+                   AVG(p.price) AS AveragePrice,
+                   (CAST(SUM(CASE WHEN p.Status = 'Active' THEN 1 ELSE 0 END) AS decimal) / COUNT(*)) * 100 AS ActiveAdsPercentage
+                   FROM Publication p INNER JOIN Model m ON p.model_car = m.model_car;";
                 var statistics = repo.Connection.QueryFirstOrDefault<Statistics>(query);
                 return statistics;
             }
@@ -105,6 +114,9 @@ namespace Kursach.Repositories_CRUD.Class
             {
                 string insertQuery = "INSERT INTO Deal (Id_Publication, Date_Buy, Final_Price, Login) VALUES (@IdPublication, @DateBuy, @FinalPrice, @Login);";
                 repo.Connection.Execute(insertQuery, deal);
+
+                string updateQuery = "UPDATE Publication SET Status = 'NoActive' WHERE Id_Publication = @IdPublication;";
+                repo.Connection.Execute(updateQuery, new { IdPublication = deal.IdPublication });
             }
         }
 
@@ -114,7 +126,7 @@ namespace Kursach.Repositories_CRUD.Class
             {
                 string sqlQuery = "SELECT p.*, m.car_mark FROM Publication p INNER JOIN Model m ON p.model_car = m.model_car WHERE p.price " +
                               (condition == "Above" ? ">=" : "<=") +
-                              " @TargetPrice";
+                              " @TargetPrice AND p.Status = 'Active'";
                 var result = repo.Connection.Query<Publication>(sqlQuery, new { TargetPrice = targetPrice }).ToList();
                 return result;
             }

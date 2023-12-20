@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Kursach.Connections_Inicialization;
 using Kursach.Models;
+using System.Data;
 
 
 namespace Kursach
@@ -31,7 +32,7 @@ namespace Kursach
 
             UpdateLabelPublicationId();
             this.dataGridView2.CellClick += new DataGridViewCellEventHandler(this.MainFormDealer_CellClick);
-            
+
         }
 
         private void MainFormDealer_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -54,7 +55,7 @@ namespace Kursach
 
         private void UpdateLabelPublicationId()
         {
-            Label labelPublicationId = (Label)this.Controls["label7"]; // Замените "labelPublicationId" на актуальное имя вашего Label
+            Label labelPublicationId = (Label)this.Controls["label7"];
 
             if (Mode == 1)
             {
@@ -180,8 +181,6 @@ namespace Kursach
             }
             UpdateLabelPublicationId();
         }
-
-
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedMark = comboBox4.Text;
@@ -216,7 +215,7 @@ namespace Kursach
             comboBox2.Text = selectedRow.Cells["type_car"].Value.ToString();
             comboBox3.Text = selectedRow.Cells["Status"].Value.ToString();
 
-            // Добавьте код для других элементов управления, если необходимо
+
         }
 
         private void ClearFormFields()
@@ -228,16 +227,29 @@ namespace Kursach
             comboBox1.SelectedIndex = -1;
             comboBox2.SelectedIndex = -1;
             comboBox3.SelectedIndex = 0;
-            comboBox4.SelectedIndex = -1;   
+            comboBox4.SelectedIndex = -1;
             checkBox1.Checked = false;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            _controller.ShowStatistics();
+            //var statistics = _controller.GetStatistics();
+            //_controller.ShowStatistics();
+            ShowStatisticsForm();
         }
 
-        
+        private void ShowStatisticsForm()
+        {
+            // Получение статистики из контроллера
+            var statistics = _controller.GetStatistics();
+
+            // Создаем новую форму для отображения диаграмм
+            StatisticsForm statisticsForm = new StatisticsForm(statistics);
+
+            // Показываем форму
+            statisticsForm.Show();
+        }
+
 
     }
 }

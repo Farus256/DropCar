@@ -14,11 +14,6 @@ namespace Kursach.Services
 
         }
 
-        public List<User> GetAllUsers()
-        {
-            throw new NotImplementedException("Метод еще не реализован.");
-        }
-
         public void RegisterUser(User user)
         {
             _userRepository.RegisterUser(user);
@@ -30,9 +25,7 @@ namespace Kursach.Services
 
         public void AddInfo(string name, string email, string address, string login, string role)
         {
-
             _userRepository.UpdateUser(name, email, address, login, role);
-
         }
         
     }
