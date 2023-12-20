@@ -1,38 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace Kursach.Repositories_CRUD
 {
-    public class ConnectionRepository
+    public class ConnectionRepository : IDisposable
     {
         public readonly string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-        private readonly IDbConnection _db;
-        ~ConnectionRepository()
-        {
-            if (_db != null && _db.State == ConnectionState.Open)
-                _db.Close();
-        }
-
+        private IDbConnection _db;
         public ConnectionRepository(string connectionString)
         {
             _db = new SqlConnection(connectionString);
         }
 
-        protected IDbConnection Connection
+        public IDbCommand CreateCommand()
+        {
+            OpenConnection();
+            return _db.CreateCommand();
+        }
+
+        public IDbDataAdapter CreateDataAdapter()
+        {
+            return new SqlDataAdapter();
+        }
+
+        public void Dispose()
+        {
+            CloseConnection();
+        }
+
+        public IDbConnection Connection
         {
             get
             {
-                if (_db.State == ConnectionState.Closed)
-                    _db.Open();
+                OpenConnection();
                 return _db;
             }
+        }
+
+        private void OpenConnection()
+        {
+            if (_db.State == ConnectionState.Closed)
+                _db.Open();
+        }
+
+        private void CloseConnection()
+        {
+            if (_db.State == ConnectionState.Open)
+                _db.Close();
         }
     }
 }

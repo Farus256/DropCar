@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kursach.Models
 {
     public class Publication
     {
         public byte[] Photo { get; set; }
-        public string Login { get; set; } // Добавлено
+        public string Login { get; set; } 
         public string name_car { get; set; }
         public string Type_Car { get; set; }
         public string car_mark { get; set; }
@@ -17,7 +13,7 @@ namespace Kursach.Models
         public string Tech_State { get; set; }
         public DateTime date_publ { get; set; }
         public double price { get; set; }
-        public string Status { get; set; } // Добавлено
+        public string Status { get; set; } 
         public int id_publication { get; set; }
     }
 
@@ -38,13 +34,11 @@ namespace Kursach.Models
 
     public class Deal
     {
+        public int IdDeal { get; set; }
+        public int IdPublication { get; set; }
         public DateTime DateBuy { get; set; }
-    }
-
-    public class ClientsPhone
-    {
-        public int IdClient { get; set; }
-        public string Phone { get; set; }
+        public decimal FinalPrice { get; set; }
+        public string Login { get; set; }
     }
 
     public class DealersPhone
@@ -66,7 +60,7 @@ namespace Kursach.Models
 
         public override string ToString()
         {
-            return ModelCar; // Возвращаем ModelCar вместо полного имени класса
+            return ModelCar; 
         }
     }
 

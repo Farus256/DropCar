@@ -2,14 +2,7 @@
 using Kursach.Models;
 using Kursach.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Kursach.UI
 {
@@ -82,11 +75,23 @@ namespace Kursach.UI
             {
                 return _clientService.CheckUserData(login);
             }
-            else if(role == "Dealer")
+            else if (role == "Dealer")
             {
                 return _dealerService.CheckUserData(login);
             }
             else { return false; }
+        }
+        public void AddPhones(string login, string role, string phone1, string phone2)
+        {
+            if (role == "Client")
+            {
+                 _clientService.AddPhone(login, phone1);
+            }
+            else if (role == "Dealer")
+            {
+                 _dealerService.AddPhone(login, phone1, phone2);
+            }
+            
         }
 
     }

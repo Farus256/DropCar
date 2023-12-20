@@ -1,6 +1,5 @@
 ﻿using Kursach.Logic;
 using Kursach.Models;
-using Kursach.Repositories_CRUD.Class;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -115,11 +114,11 @@ namespace Kursach.UI
             // Отображение статистики в MessageBox
             StringBuilder message = new StringBuilder();
             message.AppendLine("Ad statistics:");
-            message.AppendLine($"Number of different types of cars: {statistics.TotalCarTypes}");
-            message.AppendLine($"Number of car brands: {statistics.TotalCarMarks}");
-            message.AppendLine($"Number of car models: {statistics.TotalCarModels}");
-            message.AppendLine($"Average ad price: {statistics.AveragePrice:C}");
-            message.AppendLine($"Percentage of active ads: {statistics.ActiveAdsPercentage:P}");
+            message.AppendLine($"\nNumber of different types of cars: {statistics.TotalCarTypes}");
+            message.AppendLine($"\nNumber of car brands: {statistics.TotalCarMarks}");
+            message.AppendLine($"\nNumber of car models: {statistics.TotalCarModels}");
+            message.AppendLine($"\nAverage ad price: {statistics.AveragePrice:C}");
+            message.AppendLine($"\nPercentage of active ads: {statistics.ActiveAdsPercentage:P}");
 
             MessageBox.Show(message.ToString(), "Statistic", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

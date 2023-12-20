@@ -46,15 +46,17 @@
             this.button4 = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -244,14 +246,6 @@
             this.textBox3.TabIndex = 15;
             this.textBox3.Visible = false;
             // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(144, 250);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 16;
-            this.textBox4.Visible = false;
-            // 
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(12, 250);
@@ -270,17 +264,6 @@
             this.label8.TabIndex = 18;
             this.label8.Text = "Email";
             this.label8.Visible = false;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(147, 228);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(51, 19);
-            this.label9.TabIndex = 19;
-            this.label9.Text = "Phone";
-            this.label9.Visible = false;
             // 
             // label10
             // 
@@ -336,21 +319,61 @@
             this.linkLabel2.Visible = false;
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(144, 193);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(100, 20);
+            this.textBox4.TabIndex = 25;
+            this.textBox4.Visible = false;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(144, 250);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(100, 20);
+            this.textBox7.TabIndex = 26;
+            this.textBox7.Visible = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(147, 169);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(51, 19);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "Phone";
+            this.label9.Visible = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(147, 228);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(63, 19);
+            this.label12.TabIndex = 28;
+            this.label12.Text = "Phone 2";
+            this.label12.Visible = false;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(448, 377);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.linkLabel1);
@@ -398,14 +421,16 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label12;
     }
 }

@@ -17,24 +17,34 @@ namespace Kursach.Repositories_CRUD
     public class ClientRepository : ConnectionRepository
     {
         public ClientRepository(string connectionString) : base(connectionString) { }
+
         public List<Client> GetAllClients()
         {
-            var clients = Connection.Query<Client>("SELECT * FROM Clients").ToList();
-            return clients;
+            using (var repo = new ConnectionRepository(connectionString))
+            {
+                var clients = repo.Connection.Query<Client>("SELECT * FROM Clients").ToList();
+                return clients;
+            }
         }
 
         public List<Publication> GetAllPublications()
         {
-            string query = @"SELECT * FROM Publication";
-            var publications = Connection.Query<Publication>(query).ToList();
-            return publications;
+            using (var repo = new ConnectionRepository(connectionString))
+            {
+                string query = @"SELECT * FROM Publication";
+                var publications = repo.Connection.Query<Publication>(query).ToList();
+                return publications;
+            }
         }
 
         public bool IsClientExists(string login)
         {
-            string query = "SELECT COUNT(*) FROM Clients WHERE Login = @Login";
-            int count = Connection.ExecuteScalar<int>(query, new { Login = login });
-            return count > 0;
+            using (var repo = new ConnectionRepository(connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM Clients WHERE Login = @Login";
+                int count = repo.Connection.ExecuteScalar<int>(query, new { Login = login });
+                return count > 0;
+            }
         }
 
         public Client GetClient()
@@ -44,32 +54,59 @@ namespace Kursach.Repositories_CRUD
 
         public bool CheckUserData(string login)
         {
-            string query = "SELECT COUNT(*) FROM Clients c LEFT JOIN Clients_Phone cp ON c.login = cp.login WHERE c.Login = @Login AND (c.Email IS NOT NULL OR c.name_client IS NOT NULL OR c.Address IS NOT NULL OR cp.Phone IS NOT NULL);";
+            using (var repo = new ConnectionRepository(connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM Clients WHERE Login = @Login AND (Email IS NOT NULL OR name_client IS NOT NULL OR Address IS NOT NULL OR Phone IS NOT NULL);";
+                int count = repo.Connection.QuerySingle<int>(query, new { Login = login });
+                return count > 0;
+            }
+        }
 
-            int count = Connection.QuerySingle<int>(query, new { Login = login });
+        public List<string> GetDealersPhones(string login)
+        {
+            using (var repo = new ConnectionRepository(connectionString))
+            {
+                string query = "SELECT Phone FROM Dealers_Phone WHERE Login = @Login";
+                List<string> dealerPhones = repo.Connection.Query<string>(query, new { Login = login }).ToList();
+                return dealerPhones;
+            }
+        }
 
-            return count > 0;
+        public string GetRealName(string login)
+        {
+            using (var repo = new ConnectionRepository(connectionString))
+            {
+                string query = "SELECT Name_Dealer FROM Dealers WHERE Login = @Login";
+                string nameDealer = repo.Connection.QuerySingle<string>(query, new { Login = login });
+                return nameDealer;
+            }
         }
 
         public bool AddClient(string login)
         {
-            
-            if (IsClientExists(login))
+            using (var repo = new ConnectionRepository(connectionString))
             {
-                return false;
+                if (IsClientExists(login))
+                {
+                    return false;
+                }
+                else
+                {
+                    string query = "INSERT INTO [Clients] (Login) VALUES ( @Login)";
+                    repo.Connection.Execute(query, new { Login = login });
+                    return true;
+                }
             }
-            else
-            {
-                string query = "INSERT INTO [Clients] (Login) VALUES ( @Login)";
-                Connection.Execute(query, new {Login = login });
-                return true;
-            }
-            
         }
 
-        public void DeleteClient()
+        public void AddPhone(string login, string phone)
         {
-            throw new NotImplementedException("Метод еще не реализован.");
+            using (var repo = new ConnectionRepository(connectionString))
+            {
+                string query = "UPDATE Clients SET Phone = @Phone WHERE Login = @Login";
+                repo.Connection.Execute(query, new { Phone = phone, Login = login });
+            }
         }
+
     }
 }

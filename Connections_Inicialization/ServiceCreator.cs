@@ -2,12 +2,7 @@
 using Kursach.Repositories_CRUD.Class;
 using Kursach.Repositories_CRUD;
 using Kursach.Services;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kursach.Connections_Inicialization
 {

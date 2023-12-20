@@ -1,10 +1,6 @@
 ﻿using Kursach.Models;
 using Kursach.Repositories_CRUD;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kursach.Logic
 {
@@ -28,7 +24,17 @@ namespace Kursach.Logic
         {
             return _clientRepository.CheckUserData(login);
         }
-
-
+        public string GetRealname(string login)
+        {
+            return _clientRepository.GetRealName(login);
+        }
+        public List<string> GetDealerPhones(string login)
+        {
+            return _clientRepository.GetDealersPhones(login);
+        }
+        public void AddPhone(string login, string phone) 
+        {
+            _clientRepository.AddPhone(login, phone);
+        }
     }
 }

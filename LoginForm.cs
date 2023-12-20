@@ -40,21 +40,23 @@ namespace Kursach
         {
             comboBox1.Items.Add("Client");
             comboBox1.Items.Add("Dealer");
-            comboBox1.Items.Add("Dealer/Client");
-            comboBox1.Items.Add("Admin");
         }
 
         public void NextFormClient(string login)
         {
             var mainFormClient = new MainFormClient(login);
+            mainFormClient.FormClosed += (s, args) => this.Close(); // Закрывает текущую форму, когда MainFormClient закрывается
+            this.Hide(); // Скрывает текущую форму
             mainFormClient.Show();
         }
         public void NextFormDealer(string login)
-        { 
+        {
             var mainFormDealer = new MainFormDealer(login);
+            mainFormDealer.FormClosed += (s, args) => this.Close(); // Закрывает текущую форму, когда MainFormDealer закрывается
+            this.Hide(); // Скрывает текущую форму
             mainFormDealer.Show();
         }
-        public void VisibilityAddInformation()
+        public void VisibilityAddInformation(string role)
         {
             linkLabel1.Visible = false;
             button3.Visible = false;
@@ -67,19 +69,34 @@ namespace Kursach
             label2.Visible = false;
             comboBox1.Visible = false;
             button4.Visible = false;
-       
+
             textBox2.Clear();
             label7.Text = "Add some info...";
 
             textBox3.Visible = true;
-            textBox4.Visible = true;
+
             textBox5.Visible = true;
             label8.Visible = true;
-            label9.Visible = true;
+            if (role == "Client")
+            {
+                textBox4.Visible = true;
+                label9.Visible = true;
+            }
+            else
+            {
+                label9.Visible = true;
+                label12.Visible = true;
+                textBox4.Visible = true;
+                textBox7.Visible = true;
+            }
+
+            
             label10.Visible = true;
             button5.Visible = true;
             textBox6.Visible = true;
             label11.Visible = true;
+            
+            
         }
 
         public void VisibilityLogin()
@@ -142,7 +159,7 @@ namespace Kursach
                 else
                 {
 
-                    VisibilityAddInformation();
+                    VisibilityAddInformation(role);
                 }
             }
             else if (!loginSuccess)
@@ -249,18 +266,22 @@ namespace Kursach
                 string address = textBox5.Text;
                 string name = textBox6.Text;
                 string role = comboBox1.Text;
-
+                string phone1 = textBox4.Text;
+                string phone2 = textBox7.Text;
+                _loginController.AddPhones(login, role, phone1, phone2);
                 _loginController.AddInfoUser(name, email, address, login, role);
                 if (role == "Client")
                 {
+                    
                     NextFormClient(login);
                 }
                 else
                 {
+                    
                     NextFormDealer(login);
                 }
 
-                VisibilityAddInformation();
+                VisibilityAddInformation(role);
             }
             catch (SqlException ex)
             {

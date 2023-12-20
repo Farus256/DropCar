@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kursach.Models; 
+﻿using System.Collections.Generic;
+using Kursach.Models;
 using Kursach.Repositories_CRUD.Class;
 
 namespace Kursach.Logic
@@ -46,7 +42,15 @@ namespace Kursach.Logic
 
         public Statistics GetStatistics()
         {
-            return _publicationRepository.GetStatistics();  
+            return _publicationRepository.GetStatistics();
+        }
+        public void AddDeal(Deal deal)
+        {
+            _publicationRepository.AddDeal(deal);
+        }
+        public List <Publication> GetPublicationsFilter(decimal targetPrice, string condition)
+        {
+            return _publicationRepository.GetPublicationsFilter(targetPrice, condition);
         }
     }
 }

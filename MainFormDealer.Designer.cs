@@ -140,14 +140,14 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(10, 316);
+            this.textBox2.Location = new System.Drawing.Point(10, 265);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(104, 20);
+            this.textBox2.Size = new System.Drawing.Size(234, 20);
             this.textBox2.TabIndex = 7;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(10, 266);
+            this.textBox4.Location = new System.Drawing.Point(10, 310);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(104, 20);
             this.textBox4.TabIndex = 9;
@@ -195,11 +195,11 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.label6.Location = new System.Drawing.Point(6, 244);
+            this.label6.Location = new System.Drawing.Point(6, 288);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 19);
+            this.label6.Size = new System.Drawing.Size(55, 19);
             this.label6.TabIndex = 13;
-            this.label6.Text = "Price";
+            this.label6.Text = "Price $";
             // 
             // comboBox2
             // 
@@ -214,7 +214,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.label8.Location = new System.Drawing.Point(6, 294);
+            this.label8.Location = new System.Drawing.Point(9, 243);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(80, 19);
             this.label8.TabIndex = 17;
