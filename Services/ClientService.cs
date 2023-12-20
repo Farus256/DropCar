@@ -24,6 +24,11 @@ namespace Kursach.Logic
 
             return _clientRepository.AddClient(login);
         }
-        
+        public bool CheckUserData(string login)
+        {
+            return _clientRepository.CheckUserData(login);
+        }
+
+
     }
 }

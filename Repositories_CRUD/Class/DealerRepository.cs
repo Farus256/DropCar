@@ -25,6 +25,14 @@ namespace Kursach.Repositories_CRUD
             return count > 0;
         }
 
+        public bool CheckUserData(string login)
+        {
+            string query = "SELECT COUNT(*) FROM Dealers d LEFT JOIN Dealers_phone dp ON d.login = dp.login WHERE d.Login = @Login AND (d.Email IS NOT NULL OR d.Name_Dealer IS NOT NULL OR d.Address IS NOT NULL OR dp.Phone IS NOT NULL);";
+
+            int count = Connection.QuerySingle<int>(query, new { Login = login });
+
+            return count > 0;
+        }
         public Dealer GetDealer()
         {
             throw new NotImplementedException("Метод еще не реализован.");

@@ -26,13 +26,13 @@ namespace Kursach.UI
             _dealerService = dealerService ?? throw new ArgumentNullException(nameof(dealerService));
         }
 
-        public void Login(string login, string password, string role)
+        public bool Login(string login, string password, string role)
         {
             try
             {
                 if (_userService.IsLoginExists(login, password, role))
                 {
-                    MessageBox.Show("Вход успешно выполнен!");
+                    
                     if (role == "Client")
                     {
                         _clientService.AddClient(login);
@@ -41,34 +41,34 @@ namespace Kursach.UI
                     {
                         _dealerService.AddDealer(login);
                     }
-                    else if (role == "Dealer/Client")
-                    {
-                        // Дополнительная логика для Dealer/Client
-                    }
+                    return true;
                     // NextFormClient(login, password, role);
                 }
                 else
                 {
-                    MessageBox.Show("Пользователь с таким логином и паролем не найден.");
+                    
+                    return false;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return false;
             }
         }
-        public void Registration(string login, string password, string role)
+        public bool Registration(string login, string password, string role)
         {
             try
             {
                 var newUser = new User { Login = login, Role = role, Password = password };
                 _userService.RegisterUser(newUser);
                 MessageBox.Show("Registration successful!");
-                // Дополнительная логика, если необходимо
+                return true;
             }
             catch (InvalidOperationException ex)
             {
                 MessageBox.Show($"Error: {ex.Message}");
+                return false;
             }
         }
 
@@ -76,7 +76,18 @@ namespace Kursach.UI
         {
             _userService.AddInfo(name, email, address, login, role);
         }
-
+        public bool CheckUserData(string login, string role)
+        {
+            if (role == "Client")
+            {
+                return _clientService.CheckUserData(login);
+            }
+            else if(role == "Dealer")
+            {
+                return _dealerService.CheckUserData(login);
+            }
+            else { return false; }
+        }
 
     }
 }

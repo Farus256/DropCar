@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -43,18 +44,13 @@ namespace Kursach
             comboBox1.Items.Add("Admin");
         }
 
-        public void NextFormClient(string login, string password, string role)
+        public void NextFormClient(string login)
         {
-
-            /*MainFormClient programForm = new MainFormClient(login, password, role);
-            programForm.Show();
-            //programForm.FormClosed += (s, args) => this.Close(); 
-            this.Hide(); */
+            var mainFormClient = new MainFormClient(login);
+            mainFormClient.Show();
         }
-        public void NextFormDealer()
-        {
-            string login = textBox1.Text;
-
+        public void NextFormDealer(string login)
+        { 
             var mainFormDealer = new MainFormDealer(login);
             mainFormDealer.Show();
         }
@@ -73,7 +69,7 @@ namespace Kursach
             button4.Visible = false;
        
             textBox2.Clear();
-            label7.Text = "Add some info";
+            label7.Text = "Add some info...";
 
             textBox3.Visible = true;
             textBox4.Visible = true;
@@ -102,8 +98,7 @@ namespace Kursach
             textBox1.Clear();
             textBox2.Clear();
             label7.Text = "Login";
-
-
+            linkLabel2.Visible = false;
         }
 
         public void VisibilityRegistration() 
@@ -121,23 +116,79 @@ namespace Kursach
             textBox1.Clear();
             textBox2.Clear();
             label7.Text = "Registration";
+            linkLabel2.Visible = true;
         }
         private void Login(string login, string password, string role)
         {
-            _loginController.Login(login, password, role);
-            VisibilityAddInformation();
+            bool loginSuccess = _loginController.Login(login, password, role);
+
+            if (loginSuccess)
+            {
+                // Проверка заполненности данных в базе данных перед отображением дополнительной информации
+                bool userDataFilled = _loginController.CheckUserData(login, role);
+
+                if (userDataFilled)
+                {
+                    
+                    if (role == "Client")
+                    {
+                        NextFormClient(login);
+                    }
+                    else
+                    {
+                        NextFormDealer(login);
+                    }
+                }
+                else
+                {
+
+                    VisibilityAddInformation();
+                }
+            }
+            else if (!loginSuccess)
+            {
+                MessageBox.Show("Invalid login or password. Please try again.");
+            }
         }
-        private void Registration(string login, string password, string role)
+        private bool Registration(string login, string password, string role)
         {
-            _loginController.Registration(login, password, role);
-            VisibilityLogin();
+            // Проверка на пустые поля
+            if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please fill in all fields.");
+                return false;
+            }
+
+            bool registrationSuccess = _loginController.Registration(login, password, role);
+            if (registrationSuccess)
+            {
+                VisibilityLogin();
+            }
+            else
+            {
+                MessageBox.Show("Registration failed. Please try again with different credentials.");
+            }
+            return registrationSuccess;
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            string login = textBox1.Text;
-            string password = textBox2.Text;
-            string role = comboBox1.Text;
-            Login(login, password, role);
+            try
+            {
+                string login = textBox1.Text;
+                string password = textBox2.Text;
+                string role = comboBox1.Text;
+                Login(login, password, role);
+            }
+            catch (SqlException ex)
+            {
+                // Обработка исключения SqlException
+                MessageBox.Show($"Error connecting to the database: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                // Обработка других исключений
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -152,10 +203,23 @@ namespace Kursach
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string login = textBox1.Text;
-            string password = textBox2.Text;
-            string role = comboBox1.Text;
-            Registration(login, password, role);
+            try
+            {
+                string login = textBox1.Text;
+                string password = textBox2.Text;
+                string role = comboBox1.Text;
+                Registration(login, password, role);
+            }
+            catch (SqlException ex)
+            {
+                // Обработка исключения SqlException
+                MessageBox.Show($"Error connecting to the database: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                // Обработка других исключений
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -165,18 +229,54 @@ namespace Kursach
 
         private void button5_Click(object sender, EventArgs e)
         {
-            string login = textBox1.Text;
-            string email = textBox3.Text;
-            string address = textBox5.Text;
-            string name = textBox6.Text;
-            string role = comboBox1.Text;
-            _loginController.AddInfoUser(name, email, address, login, role);
+            try
+            {
+                // Проверка на пустые поля
+                if (string.IsNullOrWhiteSpace(textBox1.Text) ||
+                    string.IsNullOrWhiteSpace(textBox3.Text) ||
+                    string.IsNullOrWhiteSpace(textBox5.Text) ||
+                    string.IsNullOrWhiteSpace(textBox6.Text) ||
+                    string.IsNullOrWhiteSpace(comboBox1.Text))
+                {
+                    MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Прерываем выполнение метода, так как не все поля заполнены
+                }
 
-            
-            NextFormDealer();
-            
+                bool userDataFilled = _loginController.CheckUserData(textBox1.Text, comboBox1.Text);
 
+                string login = textBox1.Text;
+                string email = textBox3.Text;
+                string address = textBox5.Text;
+                string name = textBox6.Text;
+                string role = comboBox1.Text;
 
+                _loginController.AddInfoUser(name, email, address, login, role);
+                if (role == "Client")
+                {
+                    NextFormClient(login);
+                }
+                else
+                {
+                    NextFormDealer(login);
+                }
+
+                VisibilityAddInformation();
+            }
+            catch (SqlException ex)
+            {
+                // Обработка исключения SqlException
+                MessageBox.Show($"Error connecting to the database: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                // Обработка других исключений
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            VisibilityLogin();
         }
     }
 }

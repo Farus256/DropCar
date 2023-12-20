@@ -42,6 +42,15 @@ namespace Kursach.Repositories_CRUD
             throw new NotImplementedException("Метод еще не реализован.");
         }
 
+        public bool CheckUserData(string login)
+        {
+            string query = "SELECT COUNT(*) FROM Clients c LEFT JOIN Clients_Phone cp ON c.login = cp.login WHERE c.Login = @Login AND (c.Email IS NOT NULL OR c.name_client IS NOT NULL OR c.Address IS NOT NULL OR cp.Phone IS NOT NULL);";
+
+            int count = Connection.QuerySingle<int>(query, new { Login = login });
+
+            return count > 0;
+        }
+
         public bool AddClient(string login)
         {
             

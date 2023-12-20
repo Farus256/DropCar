@@ -35,8 +35,9 @@ namespace Kursach.Services
         public void AddInfo(string name, string email, string address, string login, string role)
         {
 
-            _userRepository.UpdateUser(name, email, address, login, role);  
+            _userRepository.UpdateUser(name, email, address, login, role);
 
         }
+        
     }
 }

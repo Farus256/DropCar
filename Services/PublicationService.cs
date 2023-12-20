@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Kursach.Models; // Добавьте эту директиву using для использования моделей
+using Kursach.Models; 
 using Kursach.Repositories_CRUD.Class;
 
 namespace Kursach.Logic
@@ -23,10 +23,30 @@ namespace Kursach.Logic
         {
             _publicationRepository.AddPublication(publication);
         }
-
+        public void UpdateInfo(Publication publication)
+        {
+            _publicationRepository.UpdatePublication(publication);
+        }
+        public void DeletePublication(int id_publication)
+        {
+            _publicationRepository.DeletePublication(id_publication);
+        }
         public List<string> GetModels()
         {
             return _publicationRepository.GetModels();
+        }
+        public IEnumerable<string> GetModelsByMark(string mark)
+        {
+            return _publicationRepository.GetModelsByMark(mark);
+        }
+        public IEnumerable<string> GetCarMarks()
+        {
+            return _publicationRepository.GetCarMarks();
+        }
+
+        public Statistics GetStatistics()
+        {
+            return _publicationRepository.GetStatistics();  
         }
     }
 }

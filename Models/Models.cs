@@ -8,16 +8,17 @@ namespace Kursach.Models
 {
     public class Publication
     {
+        public byte[] Photo { get; set; }
         public string Login { get; set; } // Добавлено
-        public int id_publication { get; set; }
         public string name_car { get; set; }
+        public string Type_Car { get; set; }
+        public string car_mark { get; set; }
+        public string Model_Car { get; set; }
+        public string Tech_State { get; set; }
         public DateTime date_publ { get; set; }
         public double price { get; set; }
-        public string Model_Car { get; set; } // Добавлено
-        public string Tech_State { get; set; }
-        public string Type_Car { get; set; }
-        public byte[] Photo { get; set; }
         public string Status { get; set; } // Добавлено
+        public int id_publication { get; set; }
     }
 
     public class Dealer
@@ -91,6 +92,13 @@ namespace Kursach.Models
         public string Password { get; set; }
     }
 
-
+    public class Statistics
+    {
+        public int TotalCarTypes { get; set; }
+        public int TotalCarMarks { get; set; }
+        public int TotalCarModels { get; set; }
+        public decimal AveragePrice { get; set; }
+        public decimal ActiveAdsPercentage { get; set; }
+    }
 
 }
