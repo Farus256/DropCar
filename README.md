@@ -9,7 +9,7 @@
 - Additional functions for managing sales ads
 
 
-To run DropCar, you’ll need:
+## To run DropCar, you’ll need:
 - SQL Server Management Studio (SSMS)
 - [Kursachv8.mdf](https://drive.google.com/file/d/1NqZzfuNAm5nE-C3jnGJ3agnhbrqdM_R-/view?usp=sharing) (SSMS database) or change to your db
 (Link also have detailed information about project)
@@ -17,3 +17,5 @@ To run DropCar, you’ll need:
  ## Erwin database schema
  ## ![Erwin database schema](./databaseScheme.png)
 
+## Some screens
+![image1](./CarDropScreens.png)
